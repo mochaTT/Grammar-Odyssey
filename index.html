@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Grammar Odyssey - 文法・語法・熟語の冒険</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="app">
+  <div class="toast" id="toast"></div>
+
+  <!-- HOME -->
+  <section class="screen active" id="screen-home">
+    <div class="statbar">
+      <span class="lv" id="homeLv">Lv.1</span>
+      <div class="expwrap"><span id="homeExpBar" style="width:0%"></span></div>
+      <div class="curr">
+        <span class="chip">💎 <span id="homeDiamond">0</span></span>
+        <span class="chip">🪙 <span id="homeCoin">0</span></span>
+      </div>
+    </div>
+    <div class="worldcard" id="homeWorld"></div>
+    <div class="mascotrow">
+      <div class="mascot">🐱</div>
+      <div class="bubble" id="homeMascotLine">今日もがんばろう！</div>
+    </div>
+    <div class="card">
+      <div class="row"><h3>今日の学習</h3><span class="small" id="homeToday">0 / 50問</span></div>
+      <div class="bar"><span id="homeTodayBar" style="width:0%"></span></div>
+    </div>
+    <div class="card">
+      <h3>科目</h3>
+      <div class="seg" id="subSeg"></div>
+      <div class="small modedesc" id="homeSubDesc"></div>
+    </div>
+    <button class="btn" id="startBtn" onclick="startSession()">📖 学習をはじめる</button>
+    <button class="btn retry" style="margin-top:14px;" onclick="startWeakSession()">🔁 間違えた問題だけ</button>
+    <div class="card" style="margin-top:16px;">
+      <h3>苦手な問題</h3>
+      <div id="homeWeakList"></div>
+    </div>
+  </section>
+
+  <!-- STUDY -->
+  <section class="screen" id="screen-study">
+    <div class="studyhead">
+      <span class="tag" id="studyStage">STAGE 1-1</span>
+      <div class="chips">
+        <button class="undo" onclick="undo()">↶ 戻す</button>
+        <span class="chip">💎 <span id="studyDiamond">0</span></span>
+      </div>
+    </div>
+    <div class="qbar"><span id="qbarInner" style="width:0%"></span></div>
+    <div class="card swipe" id="studyCard"></div>
+    <div class="ansrow">
+      <button class="btn retry" id="ngBtn" onclick="answer(false)">× 間違い</button>
+      <button class="btn" id="okBtn" onclick="answer(true)">○ 正解</button>
+    </div>
+    <div class="small" style="text-align:center;margin-top:12px;">タップで答え → 右にスワイプ＝正解 ／ 左にスワイプ＝間違い</div>
+  </section>
+
+  <!-- WORLD -->
+  <section class="screen" id="screen-world">
+    <h1>🌍 世界</h1>
+    <div class="seg" id="worldSeg" style="margin-bottom:12px;"></div>
+    <div class="worldcard" id="worldBig"></div>
+    <div class="card small">問題を覚えるほど、世界が育っていきます。章ごとにエリアが分かれています。</div>
+    <h2 id="worldSubTitle">エリア</h2>
+    <div id="stageList"></div>
+  </section>
+
+  <!-- MENU -->
+  <section class="screen" id="screen-menu">
+    <h1>☰ メニュー</h1>
+    <div class="card">
+      <div class="row"><span class="small">累計学習</span><b id="menuTotal">0 問</b></div>
+      <div class="row"><span class="small">定着した問題</span><b id="menuMastered">0 / 0</b></div>
+      <div class="row"><span class="small">レベル</span><b id="menuLevel">1</b></div>
+    </div>
+    <button class="btn secondary" onclick="resetGame()">⚠️ データをリセットする</button>
+  </section>
+
+  <nav>
+    <button class="active" data-scr="home" onclick="showScreen('home')"><span class="ic">🏠</span>ホーム</button>
+    <button data-scr="study" onclick="showScreen('study')"><span class="ic">📖</span>学習</button>
+    <button data-scr="world" onclick="showScreen('world')"><span class="ic">🌍</span>世界</button>
+    <button data-scr="menu" onclick="showScreen('menu')"><span class="ic">☰</span>メニュー</button>
+  </nav>
+</div>
+
+<script src="data.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
