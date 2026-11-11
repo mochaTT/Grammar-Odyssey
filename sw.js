@@ -1,5 +1,5 @@
 // 通常は更新不要。キャッシュを全部作り直したいときだけ上げる (v1 → v2 ...)
-const VERSION = 'v1';
+const VERSION = 'v2';
 const CACHE = 'grammar-odyssey-' + VERSION;
 const ASSETS = [
   './',
