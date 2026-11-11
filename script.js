@@ -1,7 +1,7 @@
 const DAILY_GOAL=50, SAVE_KEY='grammarOdysseySave';
 const AREA_NAMES=["はじまりの島","緑の森","湖の町","雪の山","太陽の丘","星降る谷","虹の岬","深緑の森","青い湖畔","古の遺跡","風の高原","満月の丘","霧の谷","黄金の平原","静寂の森","波音の浜","氷結の峰","光の回廊","夢見の丘","終わりなき草原","蒼穹の塔","銀河の橋","刻の遺跡","世界の果て"];
 const MASCOT_LINES={home:["今日もがんばろう！","一つずつ覚えていこう！","キミの世界を育てよう！"],ok:["やったね！","その調子！","覚えてきたね！"],ng:["だいじょうぶ、次いこう！","もう一度確認しよう！"]};
-const SUBDESC={grammar:'時制・助動詞・関係詞など、文法の定番問題',usage:'動詞・名詞・前置詞などの語法',idiom:'動詞・形容詞・副詞などを含む熟語'};
+const SUBDESC={compose:'英作文用の暗唱例文。和文を見て英文を言ってみよう',grammar:'時制・助動詞・関係詞など、文法の定番問題',usage:'動詞・名詞・前置詞などの語法',idiom:'動詞・形容詞・副詞などを含む熟語'};
 const $=id=>document.getElementById(id);
 let state=null, session=null;
 
@@ -124,9 +124,10 @@ const fmtE=l=>'<p>'+l.trim().replace(/^(F\s?\d+)\s*/,'<span class="ref">$1</span
 function renderCard(rev){
   const it=session.cur,c=$('studyCard');session.rev=rev;
   c.removeAttribute('data-d');c.style.cssText='';
-  let h=`<div class="meta">${DATA[state.sub].name} ・ 第${it.k}回 ・ ${esc(it.c)} ・ No.${it.id}</div><div class="jp">${esc(it.jp)}</div>`;
-  h+=rev?`<div class="en">${it.a}</div>`+(it.al||[]).map(a=>`<div class="alt">＝ ${a}</div>`).join('')+`<div class="ex">${it.e.map(fmtE).join('')}</div>`
-        :`<div class="en">${fmtQ(it.q)}</div><div class="tap small">タップして答えを見る</div>`;
+  const cmp=state.sub==='compose';
+  let h=`<div class="meta">${DATA[state.sub].name} ・ ${cmp?'':'第'+it.k+'回 ・ '}${esc(it.c)} ・ No.${it.id}</div><div class="jp"${cmp?' style="font-size:20px;line-height:1.8"':''}>${esc(it.jp)}</div>`;
+  h+=rev?`<div class="en">${it.a}</div>`+(it.al||[]).map(a=>`<div class="alt">＝ ${a}</div>`).join('')+(it.e.length?`<div class="ex">${it.e.map(fmtE).join('')}</div>`:'')
+        :(it.q?`<div class="en">${fmtQ(it.q)}</div><div class="tap small">タップして答えを見る</div>`:`<div class="tap small">英語で言ってみよう。タップして答えを見る</div>`);
   c.innerHTML=h;c.scrollTop=0;
   $('ngBtn').disabled=!rev;$('okBtn').disabled=!rev;
 }
